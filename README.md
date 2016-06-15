@@ -1,21 +1,51 @@
 # otl-redlining-ct
-leaflet storymap with HOLC redlining maps for Connecticut
+leaflet map with HOLC redlining maps for Connecticut
 
 ## links-in-progress
 
 http://jackdougherty.github.io/otl-redlining-ct/index.html
 
+## Credit
+Richmond DSL, insert into the caption
 
 ## TO DO
 
-see MAGIC’s WMS layers, which did not display as clearly in this Leaflet as Richmond’s layers
+Testing layers from two sources:
+- DSL nonWMS http://dsl.richmond.edu/holc_national/
+- MAGIC WMS http://geoserver.lib.uconn.edu:8080/geoserver/web/?wicket:bookmarkablePage=:org.geoserver.web.demo.MapPreviewPage
 
-http://geoserver.lib.uconn.edu:8080/geoserver/web/?wicket:bookmarkablePage=:org.geoserver.web.demo.MapPreviewPage
+```
+//testing line 251 from view-source:http://dsl.richmond.edu/holc_national/
+// with map metadata from http://dsl.richmond.edu/holc_national/metadata.json
+var newhaven1937 = new L.tileLayer("http://holc.s3-website-us-east-1.amazonaws.com/tiles/CT/NewHaven/1937/{z}/{x}/{y}.png", {
+  opacity: 0.9,
+  noWrap: true,
+  bounds: [[41.191787266, -73.0023123028],[41.3805378591,-72.8048750556]],
+  minZoom: 6,
+  maxZoom: 15
+}).addTo(map);
+controlLayers.addOverlay(newhaven1937, 'New Haven 1937 <b>via DSL</b>');
 
-http://dsl.richmond.edu/holc_national/
+var newhaven1937 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?", {
+  layers: 'MAGIC:NewHaven_Redlining_1937',
+  format: 'image/png',
+  version: '1.1.0',
+  transparent: true,
+  attribution: '1937 <a href="http://magic.library.uconn.edu">MAGIC UConn</a>'
+});
+controlLayers.addOverlay(newhaven1937, 'New Haven 1937 via MAGIC');
+```
 
-view source line 228
+## Questions:
 
-after these structural issues, decide whether this is better told as storymap layer (all tiles at once?) with zoom and Coordinates
+- Why do DSL nonWMS layers display more clearly at lower zoom levels than MAGIC WMS layers?
+- Why does the New Haven DSL layer visible at zoom level 10 and above, but not visible at zoom level 9 and below (on DSL platform or mine, regardless of the min zoom level setting)?
+- Are the DSL nonWMS and MAGIC WMS layers of equal quality in closeups at high zoom levels?
+
+
+Decide how to create this statewide map:
+- which layers to use?
+- create regular statewide map, with opacity controls to see streets underneath, or
+- storymap layer (all tiles at once?) with zoom and coordinates
 
 look at my notes about other maps: New Britain?

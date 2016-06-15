@@ -4,13 +4,14 @@
 // set up the map center and zoom level
 var map = L.map('map', {
   center: [41.5, -72.7], // [41.5, -72.7] for Connecticut; [41.76, -72.67] for Hartford county or city
-  zoom: 9, // zoom 9 for Connecticut; 10 for Hartford county, 12 for Hartford city
-  zoomControl: false // add later to reposition
+  zoom: 10, // zoom 9 for Connecticut; 10 for Hartford county, 12 for Hartford city
+  zoomControl: false, // add later to reposition
+  scrollWheelZoom: false
 });
 
 // optional : customize link to view source code; add your own GitHub repository
 map.attributionControl
-.setPrefix('View <a href="http://github.com/jackdougherty/otl-ct-redlining">code on GitHub</a>, created with <a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
+.setPrefix('View <a href="http://github.com/jackdougherty/otl-redlining-ct">code on GitHub</a>, created with <a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
 
 // optional: add legend to toggle any baselayers and/or overlays
 // global variable with (null, null) allows indiv layers to be added inside functions below
@@ -24,6 +25,8 @@ L.control.zoomLabel().addTo(map);
 
 // Reposition zoom control other than default topleft
 L.control.zoom({position: "topright"}).addTo(map);
+
+L.control.scale().addTo(map);
 
 // REMOVE AFTER MAP CONSTRUCTION: optional Coordinate Control (also in index.html)
 var c = new L.Control.Coordinates();
@@ -81,7 +84,6 @@ L.marker([41.764, -72.682], {icon: starIcon}).addTo(map);
 // tileLayer.WMS as a checkbox overlay
 // UConn MAGIC WMS settings - see http://geoserver.lib.uconn.edu:8080/geoserver/web/?wicket:bookmarkablePage=:org.geoserver.web.demo.MapPreviewPage
 
-
 var darien1937 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?", {
   layers: 'MAGIC:Darien_Redlining_1937',
   format: 'image/png',
@@ -89,7 +91,7 @@ var darien1937 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geoser
   transparent: true,
   attribution: '1937 <a href="http://magic.library.uconn.edu">MAGIC UConn</a>'
 }).addTo(map);
-controlLayers.addOverlay(darien1937, 'Darien 1937');
+controlLayers.addOverlay(darien1937, 'Darien 1937 via MAGIC');
 
 var easthartford1937 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?", {
   layers: 'MAGIC:EastHartford_Redlining_1937',
@@ -98,7 +100,7 @@ var easthartford1937 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/
   transparent: true,
   attribution: '1937 <a href="http://magic.library.uconn.edu">MAGIC UConn</a>'
 }).addTo(map);
-controlLayers.addOverlay(easthartford1937, 'East Hartford 1937');
+controlLayers.addOverlay(easthartford1937, 'East Hartford 1937 via MAGIC');
 
 var hartford1937 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?", {
   layers: 'MAGIC:Hartford_Redlining_1937',
@@ -107,7 +109,7 @@ var hartford1937 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geos
   transparent: true,
   attribution: '1937 <a href="http://magic.library.uconn.edu">MAGIC UConn</a>'
 }).addTo(map);
-controlLayers.addOverlay(hartford1937, 'Hartford 1937');
+controlLayers.addOverlay(hartford1937, 'Hartford 1937 via MAGIC');
 
 var newcanaan1937 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?", {
   layers: 'MAGIC:NewCanaan_Redlining_1937',
@@ -116,7 +118,18 @@ var newcanaan1937 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geo
   transparent: true,
   attribution: '1937 <a href="http://magic.library.uconn.edu">MAGIC UConn</a>'
 }).addTo(map);
-controlLayers.addOverlay(newcanaan1937, 'New Canaan 1937');
+controlLayers.addOverlay(newcanaan1937, 'New Canaan 1937 via MAGIC');
+
+//testing line 251 from view-source:http://dsl.richmond.edu/holc_national/
+// with map metadata from http://dsl.richmond.edu/holc_national/metadata.json
+var newhaven1937 = new L.tileLayer("http://holc.s3-website-us-east-1.amazonaws.com/tiles/CT/NewHaven/1937/{z}/{x}/{y}.png", {
+  opacity: 0.9,
+  noWrap: true,
+  bounds: [[41.191787266, -73.0023123028],[41.3805378591,-72.8048750556]],
+  minZoom: 6,
+  maxZoom: 15
+}).addTo(map);
+controlLayers.addOverlay(newhaven1937, 'New Haven 1937 <b>via DSL</b>');
 
 var newhaven1937 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?", {
   layers: 'MAGIC:NewHaven_Redlining_1937',
@@ -124,8 +137,19 @@ var newhaven1937 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geos
   version: '1.1.0',
   transparent: true,
   attribution: '1937 <a href="http://magic.library.uconn.edu">MAGIC UConn</a>'
+});
+controlLayers.addOverlay(newhaven1937, 'New Haven 1937 via MAGIC');
+
+//testing line 251 from view-source:http://dsl.richmond.edu/holc_national/
+// with map metadata from http://dsl.richmond.edu/holc_national/metadata.json
+var stamford1937 = new L.tileLayer("http://holc.s3-website-us-east-1.amazonaws.com/tiles/CT/Stamford/1937/{z}/{x}/{y}.png", {
+  opacity: 0.9,
+  noWrap: true,
+  bounds: [[40.9981813986, -73.6760083697],[41.191881073,-73.4502348875]],
+  minZoom: 7,
+  maxZoom: 14
 }).addTo(map);
-controlLayers.addOverlay(newhaven1937, 'New Haven 1937');
+controlLayers.addOverlay(stamford1937, 'Stamford 1937 <b>via DSL</b>');
 
 var stamford1937 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?", {
   layers: 'MAGIC:Stamford_Redlining_1937',
@@ -133,8 +157,8 @@ var stamford1937 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geos
   version: '1.1.0',
   transparent: true,
   attribution: '1937 <a href="http://magic.library.uconn.edu">MAGIC UConn</a>'
-}).addTo(map);
-controlLayers.addOverlay(stamford1937, 'Stamford 1937');
+});
+controlLayers.addOverlay(stamford1937, 'Stamford 1937 via MAGIC');
 
 // load polygon data with clickable features from local directory
 $.getJSON("src/polygons.geojson", function (data) {   // insert pathname to your local directory file
