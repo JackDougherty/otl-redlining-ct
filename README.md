@@ -1,14 +1,14 @@
-# otl-ct-redlining
+# otl-redlining-ct
 leaflet storymap with HOLC redlining maps for Connecticut
 
 ## links-in-progress
 
-http://jackdougherty.github.io/otl-ct-redlining/index.html
+http://jackdougherty.github.io/otl-redlining-ct/index.html
 
 
 ## TO DO
 
-see MAGIC’s WMS layers, which are not as clear as Richmond’s layers
+see MAGIC’s WMS layers, which did not display as clearly in this Leaflet as Richmond’s layers
 
 http://geoserver.lib.uconn.edu:8080/geoserver/web/?wicket:bookmarkablePage=:org.geoserver.web.demo.MapPreviewPage
 
