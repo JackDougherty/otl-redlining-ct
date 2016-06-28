@@ -39,7 +39,7 @@ map.on('click', function(e) {
 // use common baselayers below, delete, or add more with plain JavaScript from http://leaflet-extras.github.io/leaflet-providers/preview/
 // .addTo(map); -- suffix displays baselayer by default
 // controlLayers.addBaseLayer (variableName, 'label'); -- adds baselayer and label to legend; omit if only one baselayer with no toggle desired
-var lightAll = new L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+var lightAll = new L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
 }).addTo(map); //this displays layer by default
 controlLayers.addBaseLayer(lightAll, 'CartoDB LightAll');
@@ -48,9 +48,9 @@ controlLayers.addBaseLayer(lightAll, 'CartoDB LightAll');
 // UConn MAGIC WMS settings - see http://geoserver.lib.uconn.edu:8080/geoserver/web/?wicket:bookmarkablePage=:org.geoserver.web.demo.MapPreviewPage
 var aerial1934 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?", {
   layers: 'MAGIC:1934 Connecticut Aerial Photography',
-  format: 'image/png',
-  version: '1.1.0',
-  transparent: true,
+  // format: 'image/png',
+  // version: '1.1.0',
+  // transparent: true,
   attribution: '1934 <a href="http://magic.library.uconn.edu">MAGIC UConn</a> and <a href="http://cslib.org">CSL</a>'
 });
 controlLayers.addBaseLayer(aerial1934, 'CT Aerial 1934');
@@ -168,7 +168,7 @@ $.getJSON("src/polygons.geojson", function (data) {   // insert pathname to your
         'color': 'red',
         'weight': 2,
         'fillColor': '#fff',
-        'fillOpacity': 0.2
+        'fillOpacity': 0
       }
     },
     onEachFeature: function( feature, layer) {
