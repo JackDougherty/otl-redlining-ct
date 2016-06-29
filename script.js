@@ -55,6 +55,16 @@ var aerial1934 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geoser
 });
 controlLayers.addBaseLayer(aerial1934, 'CT Aerial 1934');
 
+// CT ECO WMS settings - http://www.cteco.uconn.edu/help/faq_map_service.htm#wms AND http://www.cteco.uconn.edu/map_services.htm
+var ortho_1990 = new L.tileLayer.wms("http://www.ctecoapp3.uconn.edu/arcgis/services/images/ortho_1990/ImageServer/WMSServer?", {
+  // layers: 'ortho_1990',
+  // format: 'image/png',
+  // version: '1.1.1',
+  // transparent: true,
+  attribution: '1990 <a href="hhttp://www.cteco.uconn.edu/map_services.htm">CT ECO</a>'
+});
+controlLayers.addBaseLayer(ortho_1990, 'CT ECO 1990');
+
 
 
 /* POINT OVERLAYS */
