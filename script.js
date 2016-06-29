@@ -57,15 +57,13 @@ controlLayers.addBaseLayer(aerial1934, 'CT Aerial 1934');
 
 // CT ECO WMS settings - http://www.cteco.uconn.edu/help/faq_map_service.htm#wms AND http://www.cteco.uconn.edu/map_services.htm
 var ortho_1990 = new L.tileLayer.wms("http://www.ctecoapp3.uconn.edu/arcgis/services/images/ortho_1990/ImageServer/WMSServer?", {
-  // layers: 'ortho_1990',
-  // format: 'image/png',
-  // version: '1.1.1',
-  // transparent: true,
+  // layers: 'ortho_1990', // not essential
+  format: 'image/png',
+  // version: '1.1.1', // not essential
+  transparent: true,
   attribution: '1990 <a href="hhttp://www.cteco.uconn.edu/map_services.htm">CT ECO</a>'
 });
-controlLayers.addBaseLayer(ortho_1990, 'CT ECO 1990');
-
-
+controlLayers.addBaseLayer(ortho_1990, 'CT ECO 1990 as base');
 
 /* POINT OVERLAYS */
 // ways to load point map data from different sources: coordinates in the code, GeoJSON in local directory, remote GeoJSON and JSON
@@ -92,8 +90,18 @@ L.marker([41.764, -72.682], {icon: starIcon}).addTo(map);
 // Different options for styling and interactivity
 
 // tileLayer.WMS as a checkbox overlay
-// UConn MAGIC WMS settings - see http://geoserver.lib.uconn.edu:8080/geoserver/web/?wicket:bookmarkablePage=:org.geoserver.web.demo.MapPreviewPage
 
+// CT ECO WMS settings - http://www.cteco.uconn.edu/help/faq_map_service.htm#wms AND http://www.cteco.uconn.edu/map_services.htm
+var ortho_1990 = new L.tileLayer.wms("http://www.ctecoapp3.uconn.edu/arcgis/services/images/ortho_1990/ImageServer/WMSServer?", {
+  // layers: 'ortho_1990', // not essential
+  format: 'image/png',
+  // version: '1.1.1', // not essential
+  transparent: true,
+  attribution: '1990 <a href="hhttp://www.cteco.uconn.edu/map_services.htm">CT ECO</a>'
+});
+controlLayers.addOverlay(ortho_1990, 'CT ECO 1990 as overlay');
+
+// UConn MAGIC WMS settings - see http://geoserver.lib.uconn.edu:8080/geoserver/web/?wicket:bookmarkablePage=:org.geoserver.web.demo.MapPreviewPage
 var darien1937 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?", {
   layers: 'MAGIC:Darien_Redlining_1937',
   format: 'image/png',
