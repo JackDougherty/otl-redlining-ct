@@ -5,14 +5,16 @@ leaflet map with HOLC redlining maps for Connecticut
 
 http://jackdougherty.github.io/otl-redlining-ct/index.html
 
-## Credit
+## Credits to insert
 Richmond DSL, insert into the caption
+Mapwarper NYPL
 
 ## TO DO
 
-Testing layers from two sources:
+Testing layers from 3 sources:
 - DSL nonWMS http://dsl.richmond.edu/holc_national/
 - MAGIC WMS http://geoserver.lib.uconn.edu:8080/geoserver/web/?wicket:bookmarkablePage=:org.geoserver.web.demo.MapPreviewPage
+- Mapwarper tiles http://mapwarper.net/maps/15096#Export_tab
 
 ```
 //testing line 251 from view-source:http://dsl.richmond.edu/holc_national/
