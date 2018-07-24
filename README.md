@@ -3,7 +3,7 @@ leaflet map with HOLC redlining maps for Connecticut
 
 ## links-in-progress
 
-http://jackdougherty.github.io/otl-redlining-ct/index.html
+https://ontheline.github.io/otl-redlining-ct/index.html
 
 ## Credits to insert
 Richmond DSL, insert into the caption
